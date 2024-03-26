@@ -38,5 +38,3 @@ The final report includes my preliminary a preliminary descriptive analysis and 
 - The code for creating the required table is in `code/descriptive_table.R`.
 - The code for creating the required figure is in `code/scatterplot.R`.
 
-
-
