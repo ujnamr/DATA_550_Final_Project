@@ -1,0 +1,22 @@
+---
+title: "README"
+author: "Manju Ramakrishnan"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Introduction
+
+The dataset explores the use of urinary biomarker panel and PancRISK score for the early detection of pancreatic cancers. This data includes information collected from adults at multiple centers including Barts Pancreas Tissue Bank, University College London, University of Liverpool, Spanish National Cancer Research Center, Cambridge University Hospital, and the University of Belgrade. The participants were age and sex-matched. The study focused on validating the use of 4 urinary biomarkers, viz., creatinine, LYVE1, REG1B, and TFF1 in early diagnosis of pancreatic ductal adenocarcinoma. The data further included information on the CA 19-9 assay which is often an important marker for pancreatic cancer. The participant pool was divided into 3 groups, i.e., healthy controls, individuals with non-cancerous pancreatic conditions, and those with pancreatic cancer. In my preliminary analysis in this R markdown, I will perform a descriptive analysis and demonstrate the relationship between age and LYVE1. 
+
+# Generating the Final Report
+
+Clone the repository in the GitHub.
+Install necessary packages.
+Run make final_report command in your terminal.
+The final report is then created in the output directory.
+
+# Code
+
+To create the table 1, the code is included in the Rmd file under the chunk named table1.
+To create the scatterplot, the code is included in the Rmd file under the chunk named plot-data
