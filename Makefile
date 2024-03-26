@@ -1,18 +1,21 @@
+# Render the R Markdown report
+pancreatic_biomarkers.html: pancreatic_biomarkers.Rmd code/render_report.R
+	Rscript code/render_report.R
 
-pan_bio_Rmd = Urinary_biomarkers_pancancer.Rmd
-output_report_html = output/Urinary_biomarkers_pancancer.html
-output_directory = output
+# Clean the data
+clean_data/panc_biomarkers_modified.rds: code/clean.R data/Debernardi\ et\ al\ 2020\ data.csv
+	Rscript code/clean.R
 
-# Rule
-$(output_report_html): $(pan_bio_Rmd)
-	Rscript -e "rmarkdown::render('$(pan_bio_Rmd)', output_file = '$(output_report_html)')"
+# Create table_1.rds
+output/table_1.rds: code/descriptive_table.R clean_data/panc_biomarkers_modified.rds
+	Rscript code/descriptive_table.R
 
-# Phony target for final report
-final_report: $(output_report_html)
+# Create scatterplot.png
+output/scatterplot.png: code/scatterplot.R clean_data/panc_biomarkers_modified.rds
+	Rscript code/scatterplot.R
 
-# Phony target to clean output directory
+.PHONY: clean
 clean:
-	rm -rf $(output_directory)
-
-# target to run all necessary tasks
-all: clean final_report
+	rm -f output/*.rds
+	rm -f output/*.png
+	rm -f pancreatic_biomarkers.html

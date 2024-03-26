@@ -1,0 +1,95 @@
+---
+title: "pancreatic_biomarkers"
+author: "Manju Ramakrishnan"
+date: "`r Sys.Date()`"
+output: html_document
+params:
+  production: TRUE
+---
+
+# Introduction
+
+The dataset explores the use of urinary biomarker panel and PancRISK score for the early detection of pancreatic cancers. This data includes information collected from adults at multiple centers including Barts Pancreas Tissue Bank, University College London, University of Liverpool, Spanish National Cancer Research Center, Cambridge University Hospital, and the University of Belgrade. The participants were age and sex-matched. The study focused on validating the use of 4 urinary biomarkers, viz., creatinine, LYVE1, REG1B, and TFF1 in early diagnosis of pancreatic ductal adenocarcinoma. The data further included information on the CA 19-9 assay which is often an important marker for pancreatic cancer. The participant pool was divided into 3 groups, i.e., healthy controls, individuals with non-cancerous pancreatic conditions, and those with pancreatic cancer. My preliminary analysis in this R markdown, includes a descriptive analysis and demonstrates the relationship between age and LYVE1 using graphical analysis.
+
+```{r, set-chunk-opts, echo = FALSE, eval = params$production}
+library(knitr)
+opts_chunk$set(
+  echo = FALSE, warning = FALSE, message = FALSE
+)
+```
+
+```{r, load-data}
+
+file_path <- here::here("clean_data", "panc_biomarkers_modified.rds")
+
+# Read the RDS file
+data <- readRDS(file_path)
+
+description <- read.csv("data/Debernardi et al 2020 documentation.csv", header= TRUE)
+
+```
+
+
+# Descriptive Analysis
+
+This table provides a description of the demographic and clinical characteristics of the study partcipants. The `r nrow(data)` patients included in the study are distributed based on their diagnosis among three categories of patients, viz., "no pacreatic disease", "Benign Pancreatic Disease","Pancreatic Ductal Adenocarcinoma". 
+
+
+
+```{r, table1}
+
+library(labelled)
+library(gtsummary)
+library(dplyr)
+
+# Neew column 'diagnosis_desc' based on 'diagnosis' column
+data <- data %>%
+  mutate(diagnosis_desc = case_when(
+    diagnosis == 1 ~ "No Pancreatic Disease",
+    diagnosis == 2 ~ "Benign Pancreatic Disease",
+    diagnosis == 3 ~ "Pancreatic Ductal Adenocarcinoma",
+    TRUE ~ as.character(diagnosis)  # Handle unexpected values
+  ))
+
+
+var_label(data) <- list(
+  age = "Age",
+  sex = "Sex",
+  diagnosis = "Diagnosis",
+  stage = "Stage",
+  plasma_CA19_9 = "Plasma CA 19-9",
+  creatinine = "Creatinine",
+  diagnosis_desc = "Description of diagnosis"
+)
+
+
+# Generate summary table
+data %>%
+  select("age", "sex", "diagnosis_desc", "stage", "plasma_CA19_9", "creatinine", "LYVE1", "TFF1", "REG1A", "REG1B") %>%
+  tbl_summary(by = diagnosis_desc) %>%
+  add_overall() %>%
+     add_p()
+
+    
+```
+
+
+
+## Graphical analysis
+
+This is a scatter plot of LYVE1, a urinary biomarker which is part of the PancRISK score, as a function of age of the participants enrolled in the study. The plot demonstrates a postive correlation with LYVE1 increasing with age.
+
+
+
+```{r, plot-data}
+#| fig.align = "center",
+#| out.width = "1000px"
+library(ggplot2)
+
+ggplot(data, aes(x = age, y = LYVE1)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  theme_bw()
+
+```
+
