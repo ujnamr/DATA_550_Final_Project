@@ -40,11 +40,11 @@ The final report includes my preliminary a preliminary descriptive analysis and 
 
 ## Make
 
-- Open the Makefile and run the `make clean` can be used to clear all the output files. 
-- Subsequently, `make output/table_1.rds` and `output/scatterplot.png` can be run to create the outputs.
+- Open the Makefile and run the `make clean` to clear all the output files. 
+- Subsequently, you can run `make output/table_1.rds` and `output/scatterplot.png` to create the outputs.
 - Finally `make pancreatic_biomarkers.html` command can be used to build the final report.
 
 ## Renv 
 
-
+- Run `make install` to ensure that the package libraries are synchronized.
 
