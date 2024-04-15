@@ -38,3 +38,13 @@ The final report includes my preliminary a preliminary descriptive analysis and 
 - The code for creating the required table is in `code/descriptive_table.R`.
 - The code for creating the required figure is in `code/scatterplot.R`.
 
+## Make
+
+- Open the Makefile and run the `make clean` can be used to clear all the output files. 
+- Subsequently, `make output/table_1.rds` and `output/scatterplot.png` can be run to create the outputs.
+- Finally `make pancreatic_biomarkers.html` command can be used to build the final report.
+
+## Renv 
+
+
+
