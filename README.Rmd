@@ -31,20 +31,29 @@ The dataset explores the use of urinary biomarker panel and PancRISK score for t
 
 ## Report Contents
 
-The final report includes my preliminary a preliminary descriptive analysis and exploring the relationship between age and LYVE1 using graphical analysis in this R markdown document
+The final report includes my preliminary descriptive analysis and exploration of the relationship between age and LYVE1 using graphical analysis in this R markdown document.
 
 ## Code Locations
 
 - The code for creating the required table is in `code/descriptive_table.R`.
 - The code for creating the required figure is in `code/scatterplot.R`.
 
-## Make
+## Generating outputs and report
 
 - Open the Makefile and run the `make clean` to clear all the output files. 
 - Subsequently, you can run `make output/table_1.rds` and `output/scatterplot.png` to create the outputs.
 - Finally `make pancreatic_biomarkers.html` command can be used to build the final report.
 
-## Renv 
+## Installing and synchronizing all packages using Renv 
 
 - Run `make install` to ensure that the package libraries are synchronized.
+
+## Running the final report through Docker
+
+- After cloning the online repository to your local repository. Change the working directory to the downloaded project folder. Ensure that Docker is installed in your system.
+
+- Run `make docker_image' to execute the command to build a docker image in the terminal.
+
+- Run `make pancbiomarkers_report.html` to execute the command to build the final report in the report folder.   
+
 
